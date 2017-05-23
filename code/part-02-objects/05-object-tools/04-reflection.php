@@ -76,4 +76,24 @@ class ModuleRunner
             array_push($this->module, $module);
         }
     }
+
+    public function handleMethod(Module $module, ReflectionMethod $method, $params)
+    {
+        $name = $method->getName();
+        $args = $method->getParameters();
+
+        if(count($args) != 1 || substr($name, 0, 3) != "set") return false;
+
+        $property = strtolower(substr($name, 3));
+
+        if(!isset($params[$property])) return false;
+
+        $arg_class = $args[0]->getClass();
+
+        $param = empty($arg_class)? $params[$property]: $arg_class->newInstance($params[$property]);
+        $method->invoke($module, $param);
+    }
 }
+
+$test = new ModuleRunner();
+$test->init();
