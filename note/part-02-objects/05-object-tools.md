@@ -12,7 +12,7 @@
 ### 自动加载
 * 最好使用 composer 来完成自动加载和文件组织。
 * `__autoload()` 可用用来定义一个自动加载规则，但是一个进程中只能定义一次。
-* `spl_autoload_register()` 可用用来定义一个自动加载规则，但是一个进程中只能定义一次。
+* `spl_autoload_register()` 可用用来定义多个自动加载规则。
 
 ## 类函数和对象函数
 * 实际开发中需要检测类是否存在、是否拥有将要使用的方法等，以避免可能存在的风险。
@@ -54,7 +54,7 @@
 
 ### 检查类
 * ReflectionClass::getName() 返回类名。
-* ReflectionClass::isUserDefined(), ReflectionClass::isInternal（用户定义 或者 系统内建）。
+* ReflectionClass::isUserDefined(), ReflectionClass::isInternal()（用户定义 或者 系统内建）。
 * ReflectionClass::isInterface()。
 * ReflectionClass::isAbstract()。
 * ReflectionClass::isFinal()。
@@ -72,7 +72,10 @@
 * ReflectionMethod::isFinal()。
 * ReflectionMethod::isConstructor()。
 * ReflectionMethod::returnsReference()。
-* ReflectionMethod::getParameters()。
+* ReflectionMethod::getParameters() 返回 ReflectionParameter 对象数组。。
 
 ### 检查方法参数
+* 可以利用 ReflectionParameter 来判断是否需要传递参数，传递的参数是什么类型的。
 
+### 使用反射API
+* 见 `code/part-02-objects/05-object-tools/04-reflection.php`。
